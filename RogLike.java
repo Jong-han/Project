@@ -1,5 +1,3 @@
-package RogLike;
-
 import java.awt.Color;
 import java.awt.GridLayout;
 
@@ -10,10 +8,10 @@ import javax.swing.plaf.ButtonUI;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 
-public class RogLike extends JFrame {
-   public RogLike() {
+public class FrameMain extends JFrame {
+   public FrameMain() {
 
-      setTitle("¢¯e¡íc A¡Æ¢¯i¡¾a");
+      setTitle("ìš©ì‚¬ í‚¤ìš°ê¸°");
       setSize(960, 1000);
       setVisible(true);
       setResizable(false);
@@ -31,11 +29,66 @@ public class RogLike extends JFrame {
 
       getContentPane().add(panel1);
       getContentPane().add(panel2);
-
       
+      JLabel ENEMY = new JLabel("");
+      ENEMY.setIcon(new ImageIcon(FrameMain.class.getResource("/ProjectFile/BOSS.png")));
+      ENEMY.setBounds(545, 12, 319, 233);
+      panel2.add(ENEMY);
+      
+      JLabel EnemyHP = new JLabel("HP :");
+      EnemyHP.setBounds(451, 87, 62, 18);
+      panel2.add(EnemyHP);
+      
+      JLabel EnemyATK = new JLabel("ATK :");
+      EnemyATK.setBounds(451, 128, 62, 18);
+      panel2.add(EnemyATK);
+      
+      JLabel EnemyLevel = new JLabel("LEVEL :");
+      EnemyLevel.setBounds(451, 170, 62, 18);
+      panel2.add(EnemyLevel);
+      
+      JLabel MainUnit2 = new JLabel("MainUnit");
+      MainUnit2.setBounds(81, 379, 62, 18);
+      panel2.add(MainUnit2);
+      
+      JLabel MainUnitHp = new JLabel("HP : ");
+      MainUnitHp.setBounds(322, 284, 62, 18);
+      panel2.add(MainUnitHp);
+      
+      JLabel MainUnitAtk = new JLabel("ATK : ");
+      MainUnitAtk.setBounds(322, 314, 62, 18);
+      panel2.add(MainUnitAtk);
+      
+      JLabel MainUnitLevel = new JLabel("LEVEL : ");
+      MainUnitLevel.setBounds(322, 344, 62, 18);
+      panel2.add(MainUnitLevel);
+      
+      JLabel MainUnitEXP = new JLabel("EXP : ");
+      MainUnitEXP.setBounds(322, 379, 62, 18);
+      panel2.add(MainUnitEXP);
+      
+      JButton ATK = new JButton("ATTACK");
+      ATK.setBounds(553, 284, 294, 144);
+      panel2.add(ATK);
+
+      JLabel MainUnit = new JLabel("");
+      MainUnit.setIcon(new ImageIcon(FrameMain.class.getResource("/ProjectFile/Red.png")));
+      MainUnit.setBounds(73, 391, 52, 77);
+      panel1.add(MainUnit);
+
+      JLabel Heal = new JLabel("Heal");
+      Heal.setIcon(new ImageIcon(FrameMain.class.getResource("/ProjectFile/Heal.png")));
+      Heal.setBounds(419, 391, 71, 86);
+      panel1.add(Heal);
+
+      JLabel Boss = new JLabel("");
+      Boss.setBounds(685, 255, 165, 166);
+      panel1.add(Boss);
+      Boss.setIcon(new ImageIcon(FrameMain.class.getResource("/ProjectFile/BOSS2.png")));
+
    }
 
    public static void main(String arg[]) {
-      RogLike Frame = new RogLike();
+      FrameMain Frame = new FrameMain();
    }
 }
