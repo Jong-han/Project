@@ -1,19 +1,221 @@
 package RogLike;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+class Enemy {
+
+   public int HP;
+   public int ATK;
+   public int LEVEL;
+
+   public Enemy() {
+   }
+
+   public Enemy(int HP, int ATK, int LEVEL) {
+      this.HP = HP;
+      this.ATK = ATK;
+      this.LEVEL = LEVEL;
+   }
+
+   public int getHP() {
+      return HP;
+   }
+
+   public void setHP(int hP) {
+      HP = hP;
+   }
+
+   public int getATK() {
+      return ATK;
+   }
+
+   public void setATK(int aTK) {
+      ATK = aTK;
+   }
+
+   public int getLEVEL() {
+      return LEVEL;
+   }
+
+   public void setLEVEL(int lEVEL) {
+      LEVEL = lEVEL;
+   }
+
+}
+
+class HR {
+
+   private int HP;
+   private int ATK;
+   private int LEVEL;
+   private int EXP;
+
+   public HR() {
+   }
+
+   public HR(int HP, int ATK, int LEVEL, int EXP) {
+      this.HP = HP;
+      this.ATK = ATK;
+      this.LEVEL = LEVEL;
+      this.EXP = EXP;
+   }
+
+   public boolean isPossibleLevelUp() {
+      switch (LEVEL) {
+      case 1:
+         if (EXP >= 100)
+            return true;
+      case 2:
+         if (EXP >= 110)
+            return true;
+      case 3:
+         if (EXP >= 120)
+            return true;
+      case 4:
+         if (EXP >= 130)
+            return true;
+      case 5:
+         if (EXP >= 140)
+            return true;
+      case 6:
+         if (EXP >= 150)
+            return true;
+      case 7:
+         if (EXP >= 160)
+            return true;
+      case 8:
+         if (EXP >= 170)
+            return true;
+      case 9:
+         if (EXP >= 180)
+            return true;
+      }
+      return false;
+   }
+
+   public void levelUp() {
+      switch (LEVEL) {
+      case 1:
+         if (EXP >= 100) {
+            EXP -= 100;
+            ATK += 5;
+            HP += 50;
+         }
+      case 2:
+         if (EXP >= 110) {
+            EXP -= 110;
+            ATK += 5;
+            HP += 50;
+         }
+      case 3:
+         if (EXP >= 120) {
+            EXP -= 120;
+            ATK += 5;
+            HP += 50;
+         }
+      case 4:
+         if (EXP >= 130) {
+            EXP -= 130;
+            ATK += 5;
+            HP += 50;
+         }
+      case 5:
+         if (EXP >= 140) {
+            EXP -= 140;
+            ATK += 5;
+            HP += 50;
+         }
+      case 6:
+         if (EXP >= 150) {
+            EXP -= 150;
+            ATK += 5;
+            HP += 50;
+         }
+      case 7:
+         if (EXP >= 160) {
+            EXP -= 160;
+            ATK += 5;
+            HP += 50;
+         }
+      case 8:
+         if (EXP >= 170) {
+            EXP -= 170;
+            ATK += 5;
+            HP += 50;
+         }
+      case 9:
+         if (EXP >= 180) {
+            EXP -= 180;
+            ATK += 5;
+            HP += 50;
+         }
+      }
+      LEVEL = LEVEL + 1;
+   }
+
+   public boolean isLive() {
+      if (HP <= 0)
+         return false;
+      else
+         return true;
+   }
+
+   public int getHP() {
+      return HP;
+   }
+
+   public void setHP(int hP) {
+      HP = hP;
+   }
+
+   public int getATK() {
+      return ATK;
+   }
+
+   public void setATK(int aTK) {
+      ATK = aTK;
+   }
+
+   public int getLEVEL() {
+      return LEVEL;
+   }
+
+   public void setLEVEL(int lEVEL) {
+      LEVEL = lEVEL;
+   }
+
+   public int getEXP() {
+      return EXP;
+   }
+
+   public void setEXP(int eXP) {
+      EXP = eXP;
+   }
+
+   public void HealHP() {
+      HP = 50 + getLEVEL() * 50;
+   }
+
+}
 
 class ImagePanel extends JPanel {
    private Image img;
@@ -29,94 +231,12 @@ class ImagePanel extends JPanel {
    }
 }
 
-class Monster {
-   private int Level;
-   private int HP;
-   private int ATK;
-
-   Monster(int Level, int HP, int ATK) {
-      this.Level = Level;
-      this.HP = HP;
-      this.ATK = ATK;
-   }
-
-   int getLevel() {
-      return Level;
-   }
-
-   int getHP() {
-      return HP;
-   }
-
-   int getATK() {
-      return HP;
-   }
-
-   void setHP(int HP) {
-      this.HP = HP;
-   }
-}
-
-class Hero {
-   private int MainLevel;
-   private int MainHP;
-   private int MainATK;
-   private int MainEXP;
-
-   public Hero(int Level, int HP, int ATK) {
-      MainLevel = Level;
-      MainHP = HP;
-      MainATK = ATK;
-      MainEXP = 0;
-   }
-
-   int getMainLevel() {
-      return MainLevel;
-   }
-
-   int getMainHP() {
-      return MainHP;
-   }
-
-   int getMainATK() {
-      return MainATK;
-   }
-
-   int getEXP() {
-      return MainEXP;
-   }
-
-   void increaseLevel() {
-      MainLevel++;
-   }
-
-   void increaseHP() {
-      MainHP = MainHP + 50;
-   }
-
-   void increaseATK() {
-      MainATK = MainATK + 10;
-   }
-
-   void increaseEXP(int EXP) {
-      MainEXP = MainEXP + EXP;
-   }
-   
-   void decreaseHP(int ATK) {
-      MainHP = MainHP - ATK; 
-   }
-   
-   void HealHP() {
-      MainHP = 50 + getMainLevel()*50;
-   }
-
-   void setEXP() {
-      MainEXP = 0;
-   }
-
-}
-
 public class FrameMain extends JFrame {
+   HR A = new HR(100, 10, 1, 0);
+   Enemy E1 = new Enemy(50, 10, 1);
+   Enemy E2 = new Enemy(100, 20, 2);
+   Enemy E3 = new Enemy(150, 30, 3);
+   Enemy E4 = new Enemy(300, 40, 999);
 
    Random rd = new Random();
    int R = rd.nextInt(10);
@@ -126,19 +246,18 @@ public class FrameMain extends JFrame {
    private JLabel EnemyATK = new JLabel("ATK :");
    private JLabel EnemyLevel = new JLabel("LEVEL :");
 
-   private JLabel MainUnit2 = new JLabel("MainUnit");
+   private JLabel MainUnit2 = new JLabel("");
    private JLabel MainUnitHp = new JLabel("HP : ");
    private JLabel MainUnitAtk = new JLabel("ATK : ");
    private JLabel MainUnitLevel = new JLabel("LEVEL : ");
    private JLabel MainUnitEXP = new JLabel("EXP : ");
 
-   public FrameMain() {
+   private int elv = 0;
+   private int Aatk = A.getATK();
+   private int Ahp = A.getHP();
+   private int Eatk, Ehp;
 
-      Monster Level1 = new Monster(1, 50, 10);
-      Monster Level2 = new Monster(2, 100, 20);
-      Monster Level3 = new Monster(3, 150, 30);
-      Monster LevelBoss = new Monster(999, 300, 40);
-      Hero Heroo = new Hero(1, 100, 10);
+   public FrameMain() {
 
       setTitle("용사 키우기");
       setSize(960, 1000);
@@ -148,7 +267,7 @@ public class FrameMain extends JFrame {
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
       ImagePanel panel1 = new ImagePanel(
-            new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\background.png").getImage());
+            new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\Background.png").getImage());
 
       JPanel panel2 = new JPanel();
       panel2.setLayout(null);
@@ -170,24 +289,26 @@ public class FrameMain extends JFrame {
       EnemyLevel.setBounds(451, 170, 62, 18);
       panel2.add(EnemyLevel);
 
-      MainUnit2.setBounds(81, 379, 62, 18);
+      MainUnit2 = new JLabel("");
+      MainUnit2.setIcon(new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\Gold3.png"));
+      MainUnit2.setBounds(24, 220, 272, 245);
       panel2.add(MainUnit2);
 
       MainUnitHp.setBounds(322, 284, 62, 18);
       panel2.add(MainUnitHp);
-      MainUnitHp.setText("HP : " + String.valueOf(Heroo.getMainHP()));
+      MainUnitHp.setText("HP : " + A.getHP());
 
       MainUnitAtk.setBounds(322, 314, 62, 18);
       panel2.add(MainUnitAtk);
-      MainUnitAtk.setText("ATK : " + String.valueOf(Heroo.getMainATK()));
+      MainUnitAtk.setText("ATK : " + A.getATK());
 
       MainUnitLevel.setBounds(322, 344, 62, 18);
       panel2.add(MainUnitLevel);
-      MainUnitLevel.setText("Level : " + String.valueOf(Heroo.getMainLevel()));
+      MainUnitLevel.setText("Level : " + A.getLEVEL());
 
       MainUnitEXP.setBounds(322, 379, 62, 18);
       panel2.add(MainUnitEXP);
-      MainUnitEXP.setText("EXP : " + String.valueOf(Heroo.getEXP()));
+      MainUnitEXP.setText("EXP : " + A.getEXP());
 
       JButton ATK = new JButton("ATTACK");
       ATK.setBounds(607, 284, 294, 144);
@@ -198,6 +319,182 @@ public class FrameMain extends JFrame {
       MainUnit.setIcon(new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\Red.png"));
       MainUnit.setBounds(95, 373, 49, 77);
       panel1.add(MainUnit);
+
+      ATK.addActionListener(new ActionListener() {
+
+         @Override
+         public void actionPerformed(ActionEvent e) {
+
+            if (elv == 1) {
+
+               Aatk = A.getATK();
+               Eatk = E1.getATK();
+               Ehp = E1.getHP();
+               if (Ahp > 0 && Ehp > 0) {
+                  System.out.println("Hero Hit!!");
+                  Ehp -= Aatk;
+                  if (Ehp <= 0)
+                     Ehp = 0;
+                  E1.setHP(Ehp);
+                  EnemyHP.setText("HP : " + Ehp);
+
+               }
+               if (Ehp > 0) {
+                  System.out.println("Enemy Hit!!");
+                  Ahp = A.getHP();
+                  Ahp -= Eatk;
+                  if (Ahp <= 0)
+                     Ahp = 0;
+                  A.setHP(Ahp);
+                  MainUnitHp.setText("HP : " + Ahp);
+
+               } else {
+                  System.out.println("Enemy is Dead!!");
+                  JOptionPane.showMessageDialog(null, "몬스터를 처치 하였습니다!", "Message",
+
+                        JOptionPane.WARNING_MESSAGE);
+                  ENEMY.setIcon(null);
+                  EnemyHP.setText("HP : ");
+                  EnemyATK.setText("ATK : ");
+                  EnemyLevel.setText("LEVEL : ");
+                  A.setEXP(A.getEXP() + 20);
+                  System.out.println("+ 20EXP!!");
+                  MainUnitEXP.setText("EXP : " + A.getEXP());
+                  MainUnit.setFocusable(true);
+                  ATK.setFocusable(false);
+               }
+            } else if (elv == 2) {
+               Aatk = A.getATK();
+               Eatk = E2.getATK();
+               Ehp = E2.getHP();
+               if (Ahp > 0 && Ehp > 0) {
+                  System.out.println("Hero Hit!!");
+                  Ehp -= Aatk;
+                  if (Ehp <= 0)
+                     Ehp = 0;
+                  E2.setHP(Ehp);
+                  EnemyHP.setText("HP : " + Ehp);
+
+               }
+               if (Ehp > 0) {
+                  System.out.println("Enemy Hit!!");
+                  Ahp = A.getHP();
+                  Ahp -= Eatk;
+                  if (Ahp <= 0)
+                     Ahp = 0;
+                  A.setHP(Ahp);
+                  MainUnitHp.setText("HP : " + Ahp);
+
+               } else {
+                  System.out.println("Enemy is Dead!!");
+                  JOptionPane.showMessageDialog(null, "몬스터를 처치 하였습니다!", "Message",
+
+                        JOptionPane.WARNING_MESSAGE);
+                  ENEMY.setIcon(null);
+                  EnemyHP.setText("HP : ");
+                  EnemyATK.setText("ATK : ");
+                  EnemyLevel.setText("LEVEL : ");
+                  A.setEXP(A.getEXP() + 40);
+                  System.out.println("+ 40EXP!!");
+                  MainUnitEXP.setText("EXP : " + A.getEXP());
+                  MainUnit.setFocusable(true);
+                  ATK.setFocusable(false);
+               }
+            } else if (elv == 3) {
+               Aatk = A.getATK();
+               Eatk = E3.getATK();
+               Ehp = E3.getHP();
+               if (Ahp > 0 && Ehp > 0) {
+                  System.out.println("Hero Hit!!");
+                  Ehp -= Aatk;
+                  if (Ehp <= 0)
+                     Ehp = 0;
+                  E3.setHP(Ehp);
+                  EnemyHP.setText("HP : " + Ehp);
+
+               }
+               if (Ehp > 0) {
+                  System.out.println("Enemy Hit!!");
+                  Ahp = A.getHP();
+                  Ahp -= Eatk;
+                  if (Ahp <= 0)
+                     Ahp = 0;
+                  A.setHP(Ahp);
+                  MainUnitHp.setText("HP : " + Ahp);
+
+               } else {
+                  System.out.println("Enemy is Dead!!");
+                  JOptionPane.showMessageDialog(null, "몬스터를 처치 하였습니다!", "Message",
+
+                        JOptionPane.WARNING_MESSAGE);
+                  ENEMY.setIcon(null);
+                  EnemyHP.setText("HP : ");
+                  EnemyATK.setText("ATK : ");
+                  EnemyLevel.setText("LEVEL : ");
+                  A.setEXP(A.getEXP() + 60);
+                  System.out.println("+ 60EXP!!");
+                  MainUnitEXP.setText("EXP : " + A.getEXP());
+                  MainUnit.setFocusable(true);
+                  ATK.setFocusable(false);
+               }
+            } else if (elv == 999) {
+               Aatk = A.getATK();
+               Eatk = E4.getATK();
+               Ehp = E4.getHP();
+               if (Ahp > 0 && Ehp > 0) {
+                  System.out.println("Hero Hit!!");
+                  Ehp -= Aatk;
+                  if (Ehp <= 0)
+                     Ehp = 0;
+                  E4.setHP(Ehp);
+                  EnemyHP.setText("HP : " + Ehp);
+
+               }
+               if (Ehp > 0) {
+                  System.out.println("Enemy Hit!!");
+                  Ahp = A.getHP();
+                  Ahp -= Eatk;
+                  if (Ahp <= 0)
+                     Ahp = 0;
+                  A.setHP(Ahp);
+                  MainUnitHp.setText("HP : " + Ahp);
+
+               } else {
+                  JOptionPane.showMessageDialog(null, "클리어!", "Message",
+
+                        JOptionPane.WARNING_MESSAGE);
+                  System.out.println("Game Clear!!");
+                  ENEMY.setIcon(null);
+                  EnemyHP.setText("HP : ");
+                  EnemyATK.setText("ATK : ");
+                  EnemyLevel.setText("LEVEL : ");
+                  MainUnitEXP.setText("EXP : " + A.getEXP());
+                  MainUnit.setFocusable(true);
+                  ATK.setFocusable(false);
+                  System.exit(0);
+               }
+            }
+
+            if (A.isPossibleLevelUp()) {
+               JOptionPane.showMessageDialog(null, "레벨 업!", "Message",
+
+                     JOptionPane.WARNING_MESSAGE);
+               System.out.println("Hero get Level Up!");
+               A.levelUp();
+               MainUnitLevel.setText("LEVEL : " + A.getLEVEL());
+               MainUnitHp.setText("HP : " + A.getHP());
+               MainUnitAtk.setText("ATK : " + A.getATK());
+               MainUnitEXP.setText("EXP : " + A.getEXP());
+
+            }
+            if (A.isLive() == false) {
+               JOptionPane.showMessageDialog(null, "게임 오버!", "Message",
+
+                     JOptionPane.WARNING_MESSAGE);
+               System.exit(0);
+            }
+         }
+      });
 
       MainUnit.requestFocus();
       MainUnit.addKeyListener(new KeyListener() {
@@ -216,33 +513,58 @@ public class FrameMain extends JFrame {
             int y = MainUnit.getY();
 
             if (e.getKeyCode() == 37) { // 왼쪽키 눌렀을 때
-               if (x >= 672 && x <= 870 && y >= 219 && y <= 375) { // 보스와 만남
+               if (x >= 672 && x <= 870 && y >= 219 && y <= 375) {
+                  JOptionPane.showMessageDialog(null, "보스 등장!", "Message",
+
+                        JOptionPane.WARNING_MESSAGE);// 보스와 만남
+                  E4.setHP(300);
+                  MainUnit.setFocusable(false);
+                  ATK.setFocusable(true);
+                  elv = E4.getLEVEL();
                   System.out.println("보스와의 전투를 시작합니다.");
                   ENEMY.setIcon(new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\BOSS.png"));
-                  EnemyHP.setText("HP : " + String.valueOf(LevelBoss.getHP()));
-                  EnemyATK.setText("ATK : " + String.valueOf(LevelBoss.getATK()));
-                  EnemyLevel.setText("Level : " + String.valueOf(LevelBoss.getLevel()));
+                  EnemyHP.setText("HP : " + E4.getHP());
+                  EnemyATK.setText("ATK : " + E4.getATK());
+                  EnemyLevel.setText("Level : " + E4.getLEVEL());
+                  MainUnitHp.setText("HP : " + A.getHP());
+                  MainUnitAtk.setText("ATK : " + A.getATK());
+                  MainUnitLevel.setText("LEVEL : " + A.getLEVEL());
+                  MainUnitEXP.setText("EXP : " + A.getEXP());
                   MainUnit.setLocation(670, 310);
                } else if (x >= 370 && x <= 490 && y >= 322 && y <= 450) {// 회복과 만남
                   MainUnit.setLocation(429, 321);
-                  Heroo.HealHP();
-                  MainUnitHp.setText("HP : " + String.valueOf(Heroo.getMainHP()));
+                  A.HealHP();
+                  MainUnitHp.setText("HP : " + A.getHP());
+                  System.out.println("회복되었습니다!");
+                  JOptionPane.showMessageDialog(null, "모두 회복되었습니다!", "Message",
+
+                        JOptionPane.WARNING_MESSAGE);
                }
-               
+
                else {
                   MainUnit.setLocation(x - 10, y);
                   if (x < 0)
                      MainUnit.setLocation(x + 1, y);
                }
             } else if (e.getKeyCode() == 38) { // 위쪽 키 눌렀을 때
-               if (y >= 219 && y <= 375 && x >= 672 && x <= 870) { // 보스와 만남
+               if (y >= 219 && y <= 375 && x >= 672 && x <= 870) {
+                  JOptionPane.showMessageDialog(null, "보스 등장!", "Message",
+
+                        JOptionPane.WARNING_MESSAGE);// 보스와 만남
+                  E4.setHP(300);
+                  MainUnit.setFocusable(false);
+                  ATK.setFocusable(true);
+                  elv = E4.getLEVEL();
                   System.out.println("보스와의 전투를 시작합니다.");
                   ENEMY.setIcon(new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\BOSS.png"));
-                  EnemyHP.setText("HP : " + String.valueOf(LevelBoss.getHP()));
-                  EnemyATK.setText("ATK : " + String.valueOf(LevelBoss.getATK()));
-                  EnemyLevel.setText("Level : " + String.valueOf(LevelBoss.getLevel()));
+                  EnemyHP.setText("HP : " + E4.getHP());
+                  EnemyATK.setText("ATK : " + E4.getATK());
+                  EnemyLevel.setText("Level : " + E4.getLEVEL());
+                  MainUnitHp.setText("HP : " + A.getHP());
+                  MainUnitAtk.setText("ATK : " + A.getATK());
+                  MainUnitLevel.setText("LEVEL : " + A.getLEVEL());
+                  MainUnitEXP.setText("EXP : " + A.getEXP());
                   MainUnit.setLocation(670, 310);
-                  MainUnit.setFocusable(false);
                } else {
                   MainUnit.setLocation(x, y - 10);
                   if (y < 0)
@@ -250,31 +572,65 @@ public class FrameMain extends JFrame {
                }
             } else if (e.getKeyCode() == 39) { // 오른쪽키 눌렀을 때
                if (x >= 670 && y >= 219 && y <= 375) { // 보스와 만남
+                  JOptionPane.showMessageDialog(null, "보스 등장!", "Message",
+
+                        JOptionPane.WARNING_MESSAGE);
+                  E4.setHP(300);
+                  MainUnit.setFocusable(false);
+                  ATK.setFocusable(true);
+                  elv = E4.getLEVEL();
                   System.out.println("보스와의 전투를 시작합니다.");
                   ENEMY.setIcon(new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\BOSS.png"));
-                  EnemyHP.setText("HP : " + String.valueOf(LevelBoss.getHP()));
-                  EnemyATK.setText("ATK : " + String.valueOf(LevelBoss.getATK()));
-                  EnemyLevel.setText("Level : " + String.valueOf(LevelBoss.getLevel()));
+                  EnemyHP.setText("HP : " + E4.getHP());
+                  EnemyATK.setText("ATK : " + E4.getATK());
+                  EnemyLevel.setText("Level : " + E4.getLEVEL());
+                  MainUnitHp.setText("HP : " + A.getHP());
+                  MainUnitAtk.setText("ATK : " + A.getATK());
+                  MainUnitLevel.setText("LEVEL : " + A.getLEVEL());
+                  MainUnitEXP.setText("EXP : " + A.getEXP());
                   MainUnit.setLocation(670, 310);
-                  MainUnit.setFocusable(false);
-               } else if (x <= 490 && x >= 370 && y >= 322 && y <= 450) // 회복과 만남
+               } else if (x <= 490 && x >= 370 && y >= 322 && y <= 450) { // 회복과 만남
                   MainUnit.setLocation(429, 321);
-               else {
+                  A.HealHP();
+                  MainUnitHp.setText("HP : " + A.getHP());
+                  System.out.println("회복되었습니다!");
+                  JOptionPane.showMessageDialog(null, "모두 회복되었습니다!", "Message",
+
+                        JOptionPane.WARNING_MESSAGE);
+               } else {
                   MainUnit.setLocation(x + 10, y);
                   if (x > 905)
                      MainUnit.setLocation(x - 1, y);
                }
             } else if (e.getKeyCode() == 40) { // 아래쪽 키 눌렀을 때
                if (y >= 219 && x >= 672 && x <= 870) { // 보스와 만남
+                  JOptionPane.showMessageDialog(null, "보스 등장!", "Message",
+
+                        JOptionPane.WARNING_MESSAGE);
+                  E4.setHP(300);
+                  MainUnit.setFocusable(false);
+                  ATK.setFocusable(true);
+                  elv = E4.getLEVEL();
                   System.out.println("보스와의 전투를 시작합니다.");
                   ENEMY.setIcon(new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\BOSS.png"));
-                  EnemyHP.setText("HP : " + String.valueOf(LevelBoss.getHP()));
-                  EnemyATK.setText("ATK : " + String.valueOf(LevelBoss.getATK()));
-                  EnemyLevel.setText("Level : " + String.valueOf(LevelBoss.getLevel()));
+                  EnemyHP.setText("HP : " + E4.getHP());
+                  EnemyATK.setText("ATK : " + E4.getATK());
+                  EnemyLevel.setText("Level : " + E4.getLEVEL());
+                  MainUnitHp.setText("HP : " + A.getHP());
+                  MainUnitAtk.setText("ATK : " + A.getATK());
+                  MainUnitLevel.setText("LEVEL : " + A.getLEVEL());
+                  MainUnitEXP.setText("EXP : " + A.getEXP());
                   MainUnit.setLocation(670, 310);
-                  MainUnit.setFocusable(false);
-               } else if (y >= 322 && x >= 380 && x <= 450) // 회복과 만남
+               } else if (y >= 322 && x >= 380 && x <= 450) { // 회복과 만남
                   MainUnit.setLocation(429, 321);
+                  A.HealHP();
+                  MainUnitHp.setText("HP : " + A.getHP());
+                  System.out.println("회복되었습니다!");
+                  JOptionPane.showMessageDialog(null, "모두 회복되었습니다!", "Message",
+
+                        JOptionPane.WARNING_MESSAGE);
+               }
+
                else {
                   MainUnit.setLocation(x, y + 10);
                   if (y > 400)
@@ -283,35 +639,68 @@ public class FrameMain extends JFrame {
             }
 
             if (x >= 0 && y >= 0 && x <= 270 && y <= 120) {
-               if (R <= 0) {
-                  System.out.println(R + "  몬스터 조우!");
+               if (R == 0) {
+                  JOptionPane.showMessageDialog(null, "몬스터 조우!", "Message",
+
+                        JOptionPane.WARNING_MESSAGE);
+                  E1.setHP(50);
+                  MainUnit.setFocusable(false);
+                  ATK.setFocusable(true);
+                  elv = E1.getLEVEL();
+                  System.out.println("몬스터 조우!");
                   ENEMY.setIcon(new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\LEVEL1.png"));
-                  EnemyHP.setText("HP : " + String.valueOf(Level1.getHP()));
-                  EnemyATK.setText("ATK : " + String.valueOf(Level1.getATK()));
-                  EnemyLevel.setText("Level : " + String.valueOf(Level1.getLevel()));
-                  MainUnit.setFocusable(false);
+                  EnemyHP.setText("HP : " + E1.getHP());
+                  EnemyATK.setText("ATK : " + E1.getATK());
+                  EnemyLevel.setText("Level : " + E1.getLEVEL());
+                  MainUnitHp.setText("HP : " + A.getHP());
+                  MainUnitAtk.setText("ATK : " + A.getATK());
+                  MainUnitLevel.setText("LEVEL : " + A.getLEVEL());
+                  MainUnitEXP.setText("EXP : " + A.getEXP());
                }
-               R = rd.nextInt(9);
+               R = rd.nextInt(10);
+
             } else if (x >= 320 && y >= 0 && x <= 590 && y <= 120) {
-               if (R <= 0) {
-                  System.out.println(R + "  몬스터 조우!");
+               if (R == 0) {
+                  JOptionPane.showMessageDialog(null, "몬스터 조우!", "Message",
+
+                        JOptionPane.WARNING_MESSAGE);
+                  E2.setHP(100);
+                  MainUnit.setFocusable(false);
+                  ATK.setFocusable(true);
+                  elv = E2.getLEVEL();
+                  System.out.println("몬스터 조우!");
                   ENEMY.setIcon(new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\LEVEL2.png"));
-                  EnemyHP.setText("HP : " + String.valueOf(Level2.getHP()));
-                  EnemyATK.setText("ATK : " + String.valueOf(Level2.getATK()));
-                  EnemyLevel.setText("Level : " + String.valueOf(Level2.getLevel()));
-                  MainUnit.setFocusable(false);
+                  EnemyHP.setText("HP : " + E2.getHP());
+                  EnemyATK.setText("ATK : " + E2.getATK());
+                  EnemyLevel.setText("Level : " + E2.getLEVEL());
+                  MainUnitHp.setText("HP : " + A.getHP());
+                  MainUnitAtk.setText("ATK : " + A.getATK());
+                  MainUnitLevel.setText("LEVEL : " + A.getLEVEL());
+                  MainUnitEXP.setText("EXP : " + A.getEXP());
                }
-               R = rd.nextInt(9);
+               R = rd.nextInt(10);
+
             } else if (x >= 641 && y >= 0 && x <= 905 && y <= 120) {
-               if (R <= 0) {
-                  System.out.println(R + "  몬스터 조우!");
-                  ENEMY.setIcon(new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\LEVEL3.png"));
-                  EnemyHP.setText("HP : " + String.valueOf(Level3.getHP()));
-                  EnemyATK.setText("ATK : " + String.valueOf(Level3.getATK()));
-                  EnemyLevel.setText("Level : " + String.valueOf(Level3.getLevel()));
+               if (R == 0) {
+                  JOptionPane.showMessageDialog(null, "몬스터 조우!", "Message",
+
+                        JOptionPane.WARNING_MESSAGE);
+                  E3.setHP(150);
                   MainUnit.setFocusable(false);
+                  ATK.setFocusable(true);
+                  elv = E3.getLEVEL();
+                  System.out.println("몬스터 조우!");
+                  ENEMY.setIcon(new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\LEVEL3.png"));
+                  EnemyHP.setText("HP : " + E3.getHP());
+                  EnemyATK.setText("ATK : " + E3.getATK());
+                  EnemyLevel.setText("Level : " + E3.getLEVEL());
+                  MainUnitHp.setText("HP : " + A.getHP());
+                  MainUnitAtk.setText("ATK : " + A.getATK());
+                  MainUnitLevel.setText("LEVEL : " + A.getLEVEL());
+                  MainUnitEXP.setText("EXP : " + A.getEXP());
                }
-               R = rd.nextInt(9);
+               R = rd.nextInt(10);
+
             }
          }
       });
@@ -329,8 +718,7 @@ public class FrameMain extends JFrame {
    }
 
    public static void main(String arg[]) {
-      @SuppressWarnings("unused")
       FrameMain Frame = new FrameMain();
-      Frame.setVisible(true);
+
    }
 }
