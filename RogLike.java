@@ -226,7 +226,7 @@ class ImagePanel extends JPanel {
 
    public ImagePanel(Image img) {
       this.img = img;
-      setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
+      setSize(new Dimension(img.getWidth(null), img.getHeight(null)));   
       setLayout(null);
    }
 
@@ -259,12 +259,9 @@ class Music extends Thread {
       try {
          do {
             player.play();
-            fis = new FileInputStream(file);
-            bis = new BufferedInputStream(fis);
-            player = new Player(bis);
          } while (isLoop);
       } catch (Exception e) {
-         System.out.println("오류2");
+         System.out.println();
       }
 
    }
@@ -551,15 +548,6 @@ class Music extends Thread {
          });
          
          MainUnit.addKeyListener(new KeyListener() {
-
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-
             @Override
             public void keyPressed(KeyEvent e) {
                int x = MainUnit.getX();
@@ -575,6 +563,8 @@ class Music extends Thread {
                      ATK.setFocusable(true);
                      elv = E4.getLEVEL();
                      System.out.println("보스와의 전투를 시작합니다.");
+                     MainUnit.setFocusable(false);
+                     ATK.setEnabled(true);
                      ENEMY.setIcon(new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\BOSS.png"));
                      EnemyHP.setText("HP : " + E4.getHP());
                      EnemyATK.setText("ATK : " + E4.getATK());
@@ -609,6 +599,8 @@ class Music extends Thread {
                      ATK.setFocusable(true);
                      elv = E4.getLEVEL();
                      System.out.println("보스와의 전투를 시작합니다.");
+                     MainUnit.setFocusable(false);
+                     ATK.setEnabled(true);
                      ENEMY.setIcon(new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\BOSS.png"));
                      EnemyHP.setText("HP : " + E4.getHP());
                      EnemyATK.setText("ATK : " + E4.getATK());
@@ -633,6 +625,8 @@ class Music extends Thread {
                      ATK.setFocusable(true);
                      elv = E4.getLEVEL();
                      System.out.println("보스와의 전투를 시작합니다.");
+                     MainUnit.setFocusable(false);
+                     ATK.setEnabled(true);
                      ENEMY.setIcon(new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\BOSS.png"));
                      EnemyHP.setText("HP : " + E4.getHP());
                      EnemyATK.setText("ATK : " + E4.getATK());
@@ -665,6 +659,8 @@ class Music extends Thread {
                      ATK.setFocusable(true);
                      elv = E4.getLEVEL();
                      System.out.println("보스와의 전투를 시작합니다.");
+                     MainUnit.setFocusable(false);
+                     ATK.setEnabled(true);
                      ENEMY.setIcon(new ImageIcon("C:\\201532056\\ExpertProject\\src\\ProjectFile\\BOSS.png"));
                      EnemyHP.setText("HP : " + E4.getHP());
                      EnemyATK.setText("ATK : " + E4.getATK());
@@ -756,6 +752,18 @@ class Music extends Thread {
 
                }
             }
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
          });
 
          JLabel Heal = new JLabel("Heal");
@@ -778,4 +786,3 @@ class Music extends Thread {
 
       }
    }
-
