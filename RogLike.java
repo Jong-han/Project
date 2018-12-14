@@ -258,7 +258,11 @@ class Music extends Thread {
    public void run() {
       try {
          do {
+	    fis = new FileInputStream(file);
+            bis = new BufferedInputStream(fis);
+            player = new Player(bis);
             player.play();
+	    
          } while (isLoop);
       } catch (Exception e) {
          System.out.println();
